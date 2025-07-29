@@ -188,7 +188,7 @@
             </div>
             <div class="col-lg-6">
               <div class="right-image wow fadeInRight" data-wow-duration="1s" data-wow-delay="0.5s">
-                <!-- <img src="assets/images/slider-dec.png" alt=""> -->
+                <img src="assets/images/slider-dec.png" alt="">
               </div>
             </div>
           </div>
@@ -723,78 +723,7 @@
   <script src="assets/js/popup.js"></script>
   <script src="assets/js/custom.js"></script>
 
-  <!-- scroll Icecream script -->
-  <!-- Three.js and loaders -->
-<script type="module">
-  import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.158.0/build/three.module.js';
-  import { GLTFLoader } from 'https://cdn.jsdelivr.net/npm/three@0.158.0/examples/jsm/loaders/GLTFLoader.js';
-  import { OrbitControls } from 'https://cdn.jsdelivr.net/npm/three@0.158.0/examples/jsm/controls/OrbitControls.js';
 
-  // Scene and camera
-  const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(
-    35,
-    window.innerWidth / window.innerHeight,
-    0.1,
-    100
-  );
-  camera.position.set(0, 1, 5);
-
-  // Renderer
-  const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-  renderer.setSize(window.innerWidth, window.innerHeight);
-  renderer.setPixelRatio(window.devicePixelRatio);
-  document.body.appendChild(renderer.domElement);
-
-  // Light
-  const ambientLight = new THREE.AmbientLight(0xffffff, 1.2);
-  scene.add(ambientLight);
-
-  const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
-  directionalLight.position.set(5, 5, 5);
-  scene.add(directionalLight);
-
-  // GLTF Loader
-  const loader = new GLTFLoader();
-  let iceCreamModel;
-
-loader.load('https://modelviewer.dev/shared-assets/models/Astronaut.glb', (gltf) => {
-  iceCream = gltf.scene;
-  iceCream.position.set(1.5, 0, 0);
-  scene.add(iceCream);
-});
-
-
-  // Optional controls for testing
-  const controls = new OrbitControls(camera, renderer.domElement);
-  controls.enableDamping = true;
-
-  // Animate
-  function animate() {
-    requestAnimationFrame(animate);
-
-    // Scroll-based movement (example)
-    const scrollY = window.scrollY;
-    if (iceCreamModel) {
-      // Move to center on scroll
-      const t = Math.min(scrollY / 1000, 1); // limit movement
-      iceCreamModel.position.x = 2 - 2 * t; // from 2 to 0
-      iceCreamModel.rotation.y += 0.01;
-    }
-
-    controls.update();
-    renderer.render(scene, camera);
-  }
-
-  animate();
-
-  // Resize handling
-  window.addEventListener('resize', () => {
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize(window.innerWidth, window.innerHeight);
-  });
-</script>
 
 </body>
 </html>
