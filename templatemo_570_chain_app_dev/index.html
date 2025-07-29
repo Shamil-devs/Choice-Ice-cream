@@ -163,6 +163,10 @@
     </section>
 </div>
 
+<main id="scroll-container">
+
+<!-- hero section -->
+<section class="scroll-section vertical" id="hero">
   <div class="main-banner wow fadeIn" id="top" data-wow-duration="1s" data-wow-delay="0.5s">
     <div class="container">
       <div class="row">
@@ -196,7 +200,12 @@
       </div>
     </div>
   </div>
+</section>
 
+
+<!-- 
+about us section -->
+<section class="scroll-section vertical" id="aboutus">
   <div id="services" class="services section">
     <div class="container">
       <div class="row">
@@ -254,6 +263,13 @@
       </div>
     </div>
   </div>
+</section>
+
+<!-- 
+locations section -->
+<div class="horizontal-scroll-wrapper">
+
+  <section class="scroll-section horizontal" id="location">
 
   <div id="about" class="about-us section">
     <div class="container">
@@ -306,7 +322,11 @@
       </div>
     </div>
   </div>
+</section>
 
+<!-- 
+  product&testimonial -->
+  <section class="scroll-section horizontal" id="products">
   <div id="clients" class="the-clients">
     <div class="container">
       <div class="row">
@@ -551,6 +571,8 @@
       </div>
     </div>
   </div>
+</section>
+</div>
 
   <div id="pricing" class="pricing-tables">
     <div class="container">
@@ -713,7 +735,7 @@
     </div>
   </footer>
 
-
+</main>
   <!-- Scripts -->
   <script src="vendor/jquery/jquery.min.js"></script>
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -722,6 +744,31 @@
   <script src="assets/js/imagesloaded.js"></script>
   <script src="assets/js/popup.js"></script>
   <script src="assets/js/custom.js"></script>
+<script>
+  const scrollContainers = document.querySelectorAll('.scroll-section.horizontal');
+
+  scrollContainers.forEach(container => {
+    container.style.overflow = 'hidden'; // Hide native scrollbar
+    container.style.position = 'relative';
+    
+    const contentWidth = container.scrollWidth;
+    const sectionTop = container.offsetTop;
+    const sectionHeight = container.clientHeight;
+    const sectionScrollLength = contentWidth - window.innerWidth;
+
+    window.addEventListener('scroll', () => {
+      const scrollY = window.scrollY;
+      
+      if (scrollY >= sectionTop && scrollY < sectionTop + sectionScrollLength) {
+        const scrollOffset = scrollY - sectionTop;
+        container.scrollLeft = scrollOffset;
+        document.body.style.overflowY = 'hidden';
+      } else {
+        document.body.style.overflowY = 'scroll';
+      }
+    });
+  });
+</script>
 
 
 
