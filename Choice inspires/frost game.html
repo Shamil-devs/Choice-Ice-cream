@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shattering Ice</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #1d3557;
+            font-family: sans-serif;
+            color: white;
+            flex-direction: column;
+        }
+        #shatter-container {
+            position: relative;
+            width: 80vw;
+            height: 60vh;
+            max-width: 700px;
+            cursor: pointer;
+            border-radius: 10px;
+            background-image: url('https://images.unsplash.com/photo-1627222295124-f893fc06639b?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover;
+            overflow: hidden;
+        }
+        .tile {
+            position: absolute;
+            background-color: rgba(173, 216, 230, 0.8); /* Light blue ice color */
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: background-color 0.2s;
+        }
+        .tile.cracked {
+            background-color: rgba(173, 216, 230, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <h1>Click to Break the Ice!</h1>
+    <div id="shatter-container"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script>
+        const container = document.getElementById('shatter-container');
+        const gridSize = 10; // 10x10 grid
+        let tiles = [];
+        let clicks = 0;
+        const clicksToShatter = 3;
+
+        // Create the grid of tiles
+        for (let i = 0; i < gridSize * gridSize; i++) {
+            const tile = document.createElement('div');
+            tile.classList.add('tile');
+            tile.style.width = `${100 / gridSize}%`;
+            tile.style.height = `${100 / gridSize}%`;
+            tile.style.left = `${(i % gridSize) * (100 / gridSize)}%`;
+            tile.style.top = `${Math.floor(i / gridSize) * (100 / gridSize)}%`;
+            container.appendChild(tile);
+            tiles.push(tile);
+        }
+
+        container.addEventListener('click', () => {
+            clicks++;
+            if (clicks < clicksToShatter) {
+                // "Crack" some random tiles on each click
+                gsap.utils.shuffle(tiles).slice(0, 30).forEach(tile => {
+                    tile.classList.add('cracked');
+                });
+            } else {
+                // Shatter all tiles on the final click
+                gsap.to(tiles, {
+                    duration: 1,
+                    scale: 0,
+                    x: () => (Math.random() - 0.5) * 800,
+                    y: () => (Math.random() - 0.5) * 800,
+                    rotation: () => (Math.random() - 0.5) * 720,
+                    opacity: 0,
+                    stagger: {
+                        each: 0.01,
+                        from: "random"
+                    },
+                    ease: "power2.out"
+                });
+                container.style.pointerEvents = 'none';
+            }
+        });
+    </script>
+</body>
+</html>

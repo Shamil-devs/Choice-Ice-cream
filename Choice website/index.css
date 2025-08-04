@@ -1,0 +1,440 @@
+/* === FONT & BASIC RESET === */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    line-height: 1.5;
+    background-color: #fff;
+}
+
+a {
+    text-decoration: none;
+    color: #2a2a2a;
+}
+
+ul {
+    list-style: none;
+}
+
+/* === HEADER & NAVIGATION STYLES === */
+.header-area {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    height: 100px;
+    transition: all .5s ease;
+}
+
+.header-area .main-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 30px;
+    height: 100px;
+    border-radius: 50px;
+    margin: 0 auto;
+    transition: all .3s ease;
+}
+
+.header-area .main-nav .logo {
+    font-size: 28px;
+    font-weight: 700;
+    color: #fff; /* Initial text color is white for hero image background */
+    line-height: 100px;
+    transition: all .3s ease;
+}
+
+.header-area .main-nav .nav {
+    display: flex;
+    align-items: center;
+}
+
+.header-area .main-nav .nav li {
+    padding: 0 15px;
+}
+
+.header-area .main-nav .nav li a {
+    display: block;
+    font-weight: 500;
+    font-size: 16px;
+    color: #fff; /* Initial text color */
+    text-transform: capitalize;
+    transition: all .3s ease;
+    height: 40px;
+    line-height: 40px;
+}
+
+.header-area .main-nav .nav li a:hover,
+.header-area .main-nav .nav li a.active {
+    color: #fcebe3; /* A lighter accent color on hover */
+}
+
+/* --- STICKY HEADER STYLES (when scrolled) --- */
+/* --- STICKY HEADER STYLES (when scrolled) --- */
+.header-sticky {
+    position: fixed;
+    top: 10px; /* Gap from the top of the page */
+    width: 100%;
+}
+
+.header-sticky .main-nav {
+    width: 95%; /* Make it less than 100% wide */
+    margin: 0 auto; /* Center it horizontally */
+    background-color: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 50px; /* This creates the rounded corners */
+    height: 80px;
+}
+
+.header-sticky .main-nav .logo {
+    color: #a56a42; /* Main brand color */
+    line-height: 80px;
+}
+
+.header-sticky .main-nav .nav li a {
+    color: #2a2a2a; /* Dark text on white background */
+}
+
+.header-sticky .main-nav .nav li a:hover,
+.header-sticky .main-nav .nav li a.active {
+    color: #a56a42; /* Main brand color on hover/active */
+}
+
+/* === MOBILE MENU STYLES === */
+.menu-trigger {
+    cursor: pointer;
+    display: none; /* Hidden on desktop */
+    position: absolute;
+    top: 33px;
+    right: 30px;
+    width: 32px;
+    height: 40px;
+    text-indent: -9999em;
+}
+
+.header-sticky .menu-trigger {
+    top: 23px;
+}
+
+.menu-trigger span,
+.menu-trigger span:before,
+.menu-trigger span:after {
+    transition: all 0.4s;
+    background-color: #fff; /* White hamburger icon */
+    display: block;
+    position: absolute;
+    width: 30px;
+    height: 2px;
+    left: 0;
+}
+
+.header-sticky .menu-trigger span,
+.header-sticky .menu-trigger span:before,
+.header-sticky .menu-trigger span:after {
+    background-color: #2a2a2a; /* Dark hamburger icon on white background */
+}
+
+.menu-trigger span:before,
+.menu-trigger span:after {
+    content: "";
+}
+
+.menu-trigger span { top: 16px; }
+.menu-trigger span:before { top: -10px; }
+.menu-trigger span:after { top: 10px; }
+
+/* Hamburger to "X" animation */
+.menu-trigger.active span { background-color: transparent; }
+.menu-trigger.active span:before {
+    transform: translateY(10px) rotate(45deg);
+    background-color: #2a2a2a;
+}
+.menu-trigger.active span:after {
+    transform: translateY(-10px) rotate(-45deg);
+    background-color: #2a2a2a;
+}
+
+
+/* === RESPONSIVE DESIGN === */
+@media (max-width: 992px) {
+    .header-area .main-nav .nav,
+    .header-sticky .main-nav .nav {
+        display: none; /* Hide nav links by default */
+        flex-direction: column;
+        position: absolute;
+        top: 80px;
+        left: 0;
+        width: 100%;
+        background-color: #fff;
+        padding: 10px 0;
+        box-shadow: 0 4px 5px rgba(0,0,0,0.1);
+    }
+    
+    .header-area.open .nav {
+        display: flex; /* Show nav when header has .open class */
+    }
+
+    .header-area .main-nav .nav li {
+        width: 100%;
+        text-align: center;
+        padding: 5px 0;
+    }
+
+    .header-area .main-nav .nav li a,
+    .header-sticky .main-nav .nav li a {
+        color: #2a2a2a; /* Always dark text in mobile dropdown */
+        width: 100%;
+    }
+
+    .menu-trigger {
+        display: block; /* Show hamburger icon */
+    }
+}
+
+/* === General Section Styling (from before) === */
+section {
+    min-height: 100vh;
+    padding: 8rem 2rem 4rem; /* More top padding to not hide behind nav */
+    border-bottom: 2px solid #f0f0f0;
+}
+
+/* === HERO SECTION STYLES === */
+#home {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    color: #fff;
+    /* The radial gradient using your blue color */
+    background: radial-gradient(circle at 70% 50%, #2d67b1, #1a3a64);
+    overflow: hidden; /* Prevents image from overflowing on move */
+}
+
+.hero-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 1200px; /* Max content width */
+    padding: 0 2rem;
+}
+
+.hero-text {
+    flex: 1;
+    max-width: 500px;
+}
+
+.hero-text h1 {
+    font-size: 4rem; /* Large, impactful text */
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 1rem;
+}
+
+.hero-text p {
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+    max-width: 450px;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 1rem;
+}
+
+.btn {
+    padding: 12px 28px;
+    border-radius: 50px;
+    font-weight: 500;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.btn-primary {
+    background-color: #fff;
+    color: #1a3a64;
+}
+
+.btn-primary:hover {
+    background-color: #f0f0f0;
+    transform: translateY(-2px);
+}
+
+.btn-secondary {
+    background-color: transparent;
+    color: #fff;
+    border: 2px solid #fff;
+}
+
+.btn-secondary:hover {
+    background-color: #fff;
+    color: #1a3a64;
+    transform: translateY(-2px);
+}
+
+.hero-image-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.hero-image {
+    max-width: 100%;
+    height: auto;
+    /* This transition smooths the parallax movement */
+    transition: transform 0.2s ease-out;
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 992px) {
+    .hero-container {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .hero-text {
+        margin-bottom: 3rem;
+    }
+
+    .hero-text h1 {
+        font-size: 3rem;
+    }
+    
+    .hero-buttons {
+        justify-content: center;
+    }
+}
+
+
+
+
+
+/* === ABOUT SECTION (HORIZONTAL SCROLL) === */
+#about {
+    position: relative;
+    height: 100vh;
+    overflow: hidden; /* This is crucial for GSAP's pin feature */
+    padding: 0;
+    border-bottom: none; /* Remove border for seamless scroll */
+    background-color: #f0fff0; /* A fallback background */
+}
+
+.panels-container {
+    width: 400%; /* 100% for each of the 4 panels */
+    height: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.panel {
+    width: 100vw; /* Each panel takes up the full viewport width */
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem 4rem;
+    background-color: #f7fff7;
+    border-right: 1px solid #e0ebe0;
+}
+
+.panel-content {
+    display: flex;
+    align-items: center;
+    gap: 4rem;
+    width: 100%;
+    max-width: 1100px;
+}
+
+.panel-text { flex: 1; }
+
+.panel h2 {
+    font-size: 2.8rem;
+    color: #333;
+    margin-bottom: 1rem;
+    font-weight: 700;
+}
+
+.panel p {
+    color: #555;
+    line-height: 1.7;
+    max-width: 500px;
+}
+
+.panel-image-container img {
+    width: 400px;
+    height: auto;
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+/* --- Panel 2: Mission & Vision --- */
+.mission-vision {
+    justify-content: space-around;
+    text-align: center;
+}
+.mission h3, .vision h3 {
+    font-size: 1.8rem;
+    color: #a56a42; /* Use brand color */
+    margin-bottom: 0.5rem;
+}
+
+/* --- Panel 3: Founder --- */
+.founder-panel { text-align: left; }
+.founder-image img {
+    width: 250px;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 50%; /* Circular image */
+}
+.founder-details h3 {
+    font-size: 1.8rem;
+    color: #333;
+    margin-top: -10px;
+}
+
+/* --- Panel 4: Commitment --- */
+.commitment-panel {
+    text-align: center;
+    flex-direction: column;
+}
+
+/* --- Responsive for About Section --- */
+@media (max-width: 992px) {
+    .panel { padding: 2rem; }
+    .panel-content {
+        flex-direction: column;
+        gap: 2rem;
+        text-align: center;
+    }
+    .panel p, .founder-details { text-align: center; }
+    .panel-image-container img { width: 100%; max-width: 350px; }
+    .founder-panel { flex-direction: column-reverse; } /* Put text below image */
+}
+
+
+
+
+#products { background-color: #f0f8ff; border-bottom: none; }
+
+footer {
+    background-color: #2c2c2c;
+    color: #ffffff;
+    padding: 4rem 2rem;
+    text-align: center;
+}

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Physics Toppings</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #bee1e6; /* Powder blue */
+            font-family: sans-serif;
+            flex-direction: column;
+            margin: 0;
+        }
+        #physics-canvas {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        .controls {
+            margin-top: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 8px;
+            margin: 0 5px;
+            background-color: #f07167; /* Coral */
+            color: white;
+            transition: background-color 0.2s;
+        }
+        button:hover {
+            background-color: #ef476f;
+        }
+    </style>
+</head>
+<body>
+    <div id="physics-canvas"></div>
+    <div class="controls">
+        <button id="add-sprinkle">Add Sprinkle</button>
+        <button id="add-chip">Add Choco-Chip</button>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
+    <script>
+        // Module aliases
+        const { Engine, Render, Runner, Bodies, Composite, Bodies: { fromVertices } } = Matter;
+
+        // Create engine
+        const engine = Engine.create();
+        const world = engine.world;
+
+        // Create renderer
+        const render = Render.create({
+            element: document.getElementById('physics-canvas'),
+            engine: engine,
+            options: {
+                width: 500,
+                height: 600,
+                wireframes: false, // Show solid shapes
+                background: 'transparent'
+            }
+        });
+
+        Render.run(render);
+        const runner = Runner.create();
+        Runner.run(runner, engine);
+
+        // Add the bowl (a static body with a concave shape)
+        const bowl = fromVertices(250, 520, [
+            { x: 0, y: 0 }, { x: 30, y: 80 }, { x: 220, y: 80 }, { x: 250, y: 0 }
+        ], { isStatic: true, render: { fillStyle: '#fdf0d5' } }, true);
+        
+        Composite.add(world, [
+            bowl,
+            // Add walls to keep toppings inside the canvas
+            Bodies.rectangle(250, 610, 500, 20, { isStatic: true, render: { visible: false } }),
+            Bodies.rectangle(-10, 300, 20, 600, { isStatic: true, render: { visible: false } }),
+            Bodies.rectangle(510, 300, 20, 600, { isStatic: true, render: { visible: false } })
+        ]);
+
+        // Add event listeners to buttons
+        document.getElementById('add-sprinkle').addEventListener('click', () => {
+            const x = Math.random() * 400 + 50;
+            const sprinkle = Bodies.rectangle(x, 50, 40, 10, {
+                restitution: 0.3,
+                render: { fillStyle: '#006d77' }
+            });
+            Composite.add(world, sprinkle);
+        });
+
+        document.getElementById('add-chip').addEventListener('click', () => {
+            const x = Math.random() * 400 + 50;
+            const chip = Bodies.circle(x, 50, 10, {
+                restitution: 0.5,
+                render: { fillStyle: '#5d4037' }
+            });
+            Composite.add(world, chip);
+        });
+    </script>
+</body>
+</html>
