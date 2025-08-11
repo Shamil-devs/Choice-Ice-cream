@@ -104,7 +104,9 @@ ul {
     color: #2d67b1; 
     line-height: 80px;
 }
-
+.menu-trigger{
+    display: none;
+}
 .header-sticky .main-nav .nav li a {
     color: #333;
 }
@@ -303,6 +305,8 @@ ul {
     align-items: center;
     padding: 0 5%;
     color: #fff;
+    overflow: hidden;
+
 }
 
 .product-details,
@@ -475,24 +479,134 @@ footer {
 
 /* === MOBILE & RESPONSIVE STYLES === */
 @media (max-width: 992px) {
-    .header-area .main-nav .nav,
-    .header-sticky .main-nav .nav { display: none; /* ... rest of mobile nav styles */ flex-direction: column; position: absolute; top: 80px; left: 0; width: 100%; background-color: #fff; padding: 10px 0; box-shadow: 0 4px 5px rgba(0,0,0,0.1); }
-    .header-area.open .nav { display: flex; }
-    .header-area .main-nav .nav li { width: 100%; text-align: center; padding: 5px 0; }
-    .header-area .main-nav .nav li a,
-    .header-sticky .main-nav .nav li a { color: #2a2a2a; width: 100%; }
-    .menu-trigger { display: block; }
+
+    /* --- MOBILE HEADER & NAVIGATION --- */
+
+    /* Show the hamburger icon on mobile */
+    .menu-trigger {
+        display: block;
+        cursor: pointer;
+        position: absolute;
+        top: 33px;
+        right: 30px;
+        width: 32px;
+        height: 40px;
+        text-indent: -9999em;
+    }
+
+    .header-sticky .menu-trigger {
+        top: 23px;
+    }
+
+    /* Styling for the hamburger icon's bars */
+    .menu-trigger span,
+    .menu-trigger span:before,
+    .menu-trigger span:after {
+        transition: all 0.4s;
+        background-color: #fff;
+        display: block;
+        position: absolute;
+        width: 30px;
+        height: 2px;
+        left: 0;
+    }
+
+    .header-sticky .menu-trigger span,
+    .header-sticky .menu-trigger span:before,
+    .header-sticky .menu-trigger span:after {
+        background-color: #2d67b1;
+    }
+
+    .menu-trigger span:before,
+    .menu-trigger span:after {
+        content: "";
+    }
+
+    .menu-trigger span { top: 16px; }
+    .menu-trigger span:before { top: -10px; }
+    .menu-trigger span:after { top: 10px; }
+
+    /* Hamburger to "X" animation */
+    .menu-trigger.active span { background-color: transparent; }
+    .menu-trigger.active span:before {
+        transform: translateY(10px) rotate(45deg);
+        background-color: #2d67b1;
+    }
+    .menu-trigger.active span:after {
+        transform: translateY(-10px) rotate(-45deg);
+        background-color: #2d67b1;
+    }
+
+    /* Floating Dropdown Menu Styling */
+    .header-area .main-nav .nav {
+        display: block;
+        position: absolute;
+        top: 90px;
+        right: 30px;
+        width: 220px;
+        background-color: #fff;
+        border-radius: 15px;
+        box-shadow: 0 5px 25px rgba(0, 0, 0, 0.15);
+        padding: 10px;
+        transform-origin: top right;
+        transform: scale(0.9) translateY(-20px);
+        opacity: 0;
+        visibility: hidden;
+        transition: transform 0.3s ease, opacity 0.3s ease, visibility 0.3s;
+    }
+
+    .header-area.open .nav {
+        transform: scale(1) translateY(0);
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .header-area .main-nav .nav li {
+        width: 100%;
+        text-align: left;
+        padding: 0;
+        margin-bottom: 5px;
+    }
     
-    .hero-container { flex-direction: column; text-align: center; }
-    .hero-text { margin-bottom: 3rem; }
-    .hero-text h1 { font-size: 3rem; }
-    .hero-buttons { justify-content: center; }
+    .header-area .main-nav .nav li:last-child {
+        margin-bottom: 0;
+    }
+
+    .header-area .main-nav .nav li a {
+        color: #333;
+        width: 100%;
+        padding: 10px 15px;
+        border-radius: 10px;
+        transition: background-color 0.2s ease, color 0.2s ease;
+    }
+
+    .header-area .main-nav .nav li a:hover {
+        background-color: #f0f4f8;
+        color: #2d67b1;
+    }
     
-    .panel { padding: 1rem; }
-    .panel-content { flex-direction: column; gap: 2rem; text-align: center; padding: 2rem; }
-    .panel p, .founder-details { text-align: center; }
-    .panel-image-container img { width: 100%; max-width: 350px; }
-    .founder-panel { flex-direction: column-reverse; }
+    .header-area .main-nav .nav li a.active {
+        background-color: #2d67b1;
+        color: #fff;
+    }
+    
+    /* --- OTHER RESPONSIVE SECTION STYLES --- */
+    .hero-container {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .hero-text {
+        margin-bottom: 3rem;
+    }
+
+    .hero-text h1 {
+        font-size: 3rem;
+    }
+
+    .hero-buttons {
+        justify-content: center;
+    }
 }
 
 @media (min-width: 993px) {

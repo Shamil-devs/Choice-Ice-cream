@@ -20,38 +20,37 @@ window.addEventListener('DOMContentLoaded', () => {
         header.classList.toggle('open'); // Use .open to show/hide nav
     });
 
+
     // 3. Active Link highlighting on scroll
-    const sections = document.querySelectorAll('section');
-    const navLinks = document.querySelectorAll('.nav a');
+const sections = document.querySelectorAll('section, footer'); // FIX: Added footer to the selector
+const navLinks = document.querySelectorAll('.nav a');
 
-    const observerOptions = {
-        root: null,
-        rootMargin: '0px',
-        threshold: 0.6 // 60% of the section must be visible
-    };
+const observerOptions = {
+    root: null,
+    rootMargin: '0px',
+    threshold: 0.3 // FIX: Lowered threshold to 30% for better detection
+};
 
-    const sectionObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                // Remove active class from all links
-                navLinks.forEach(link => link.classList.remove('active'));
-                
-                // Get the ID of the current section
-                const sectionId = entry.target.getAttribute('id');
-                
-                // Add active class to the corresponding nav link
-                const activeLink = document.querySelector(`.nav a[href="#${sectionId}"]`);
-                if (activeLink) {
-                    activeLink.classList.add('active');
-                }
+const sectionObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            const sectionId = entry.target.getAttribute('id');
+            
+            // Remove active class from all links
+            navLinks.forEach(link => link.classList.remove('active'));
+
+            // Add active class to the corresponding nav link
+            const activeLink = document.querySelector(`.nav a[href="#${sectionId}"]`);
+            if (activeLink) {
+                activeLink.classList.add('active');
             }
-        });
-    }, observerOptions);
-
-    sections.forEach(section => {
-        sectionObserver.observe(section);
+        }
     });
+}, observerOptions);
 
+sections.forEach(section => {
+    sectionObserver.observe(section);
+});
 
 
 
@@ -197,5 +196,28 @@ window.addEventListener('DOMContentLoaded', () => {
 
 
 
+
+    // 8: Smooth Scrolling on Nav Link Click
+gsap.registerPlugin(ScrollToPlugin);
+
+navLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+        e.preventDefault(); // Stop the browser's default jump
+        const targetId = link.getAttribute("href");
+
+        // Use GSAP to smoothly scroll to the section
+        gsap.to(window, {
+            duration: 1.5, // How long the scroll takes
+            scrollTo: targetId,
+            ease: "power2.inOut"
+        });
+
+        // Also close the mobile menu if it's open
+        if (header.classList.contains('open')) {
+            menuTrigger.classList.remove('active');
+            header.classList.remove('open');
+        }
+    });
+});
 
 });
