@@ -6,13 +6,20 @@ window.addEventListener('DOMContentLoaded', () => {
     const mainNav = document.querySelector('.main-nav .nav');
 
     // 1. Sticky Header on Scroll
-    window.addEventListener('scroll', () => {
+    const handleStickyHeader = () => {
         if (window.scrollY > 50) {
             header.classList.add('header-sticky');
         } else {
             header.classList.remove('header-sticky');
         }
-    });
+    };
+
+    // Run the check once on page load
+    handleStickyHeader();
+
+    // Run the check again every time the user scrolls
+    window.addEventListener('scroll', handleStickyHeader);
+
 
     // 2. Mobile Menu Toggle
     menuTrigger.addEventListener('click', () => {
@@ -114,53 +121,55 @@ sections.forEach(section => {
     }
 
 
-// 6. Products Section Animations
-    const productSlides = gsap.utils.toArray(".product-slide");
+        // 6. Products Section Animations
+        const productSlides = gsap.utils.toArray(".product-slide");
 
-    if (productSlides.length) {
-        // Set initial background color from the first slide
-        document.body.style.backgroundColor = productSlides[0].dataset.color;
+        if (productSlides.length) {
+            // This part remains the same
+            if (productSlides[0].dataset.color) {
+                document.body.style.backgroundColor = productSlides[0].dataset.color;
+            }
 
-        productSlides.forEach(slide => {
-            // --- Background Color Changer ---
-            ScrollTrigger.create({
-                trigger: slide,
-                start: 'top 50%',
-                end: 'bottom 50%',
-                onEnter: () => gsap.to('body', { backgroundColor: slide.dataset.color, duration: 1.0 }),
-                onEnterBack: () => gsap.to('body', { backgroundColor: slide.dataset.color, duration: 1.0 }),
-            });
-
-            // --- Animation Timeline for slide elements ---
-            let tl = gsap.timeline({
-                scrollTrigger: {
+            productSlides.forEach(slide => {
+                ScrollTrigger.create({
                     trigger: slide,
-                    start: 'top 80%', // Start animation when slide is 80% from top
-                    end: 'bottom top', // End when bottom of slide hits the top
-                    scrub: true // Link animation progress to scroll
-                }
+                    start: 'top 50%',
+                    end: 'bottom 50%',
+                    onEnter: () => gsap.to('body', { backgroundColor: slide.dataset.color, duration: 0.4 }),
+                    onEnterBack: () => gsap.to('body', { backgroundColor: slide.dataset.color, duration: 0.4 }),
+                });
+
+                // --- Animation Timeline for slide elements (UPDATED) ---
+                let tl = gsap.timeline({
+                    scrollTrigger: {
+                        trigger: slide,
+                        start: 'top 80%',
+                        end: 'bottom top',
+                        scrub: true
+                    }
+                });
+
+                // UPDATED: Select the new classes
+                const name = slide.querySelector('.product-name');
+                const image = slide.querySelector('.product-image img');
+                const description = slide.querySelector('.product-description');
+
+                // UPDATED: Set initial positions for new classes
+                gsap.set(name, { xPercent: -100, opacity: 0 });
+                gsap.set(image, { yPercent: 100, scale: 0.5, opacity: 0 });
+                gsap.set(description, { xPercent: 100, opacity: 0 });
+
+                // UPDATED: Animate new elements INTO view
+                tl.to(name, { xPercent: 0, opacity: 1 }, 0)
+                .to(image, { yPercent: 0, scale: 1, opacity: 1 }, 0)
+                .to(description, { xPercent: 0, opacity: 1 }, 0);
+                
+                // UPDATED: Animate new elements OUT of view
+                tl.to(name, { xPercent: 100, opacity: 0 }, 0.6)
+                .to(image, { yPercent: -100, scale: 0.5, opacity: 0 }, 0.6)
+                .to(description, { xPercent: -100, opacity: 0 }, 0.6);
             });
-
-            const details = slide.querySelector('.product-details');
-            const image = slide.querySelector('.product-image img');
-            const flavors = slide.querySelector('.product-flavors');
-
-            // Set initial off-screen positions
-            gsap.set(details, { xPercent: -100, opacity: 0 });
-            gsap.set(image, { yPercent: 100, scale: 0.5, opacity: 0 });
-            gsap.set(flavors, { xPercent: 100, opacity: 0 });
-
-            // Animate elements INTO view
-            tl.to(details, { xPercent: 0, opacity: 1 }, 0)
-              .to(image, { yPercent: 0, scale: 1, opacity: 1 }, 0)
-              .to(flavors, { xPercent: 0, opacity: 1 }, 0);
-              
-            // Animate elements OUT of view
-            tl.to(details, { xPercent: -100, opacity: 0 }, 0.6)
-              .to(image, { yPercent: -100, scale: 0.5, opacity: 0 }, 0.6)
-              .to(flavors, { xPercent: 100, opacity: 0 }, 0.6);
-        });
-    }
+        }
 
 
 
@@ -198,26 +207,40 @@ sections.forEach(section => {
 
 
     // 8: Smooth Scrolling on Nav Link Click
-gsap.registerPlugin(ScrollToPlugin);
+    gsap.registerPlugin(ScrollToPlugin);
 
-navLinks.forEach(link => {
-    link.addEventListener('click', (e) => {
-        e.preventDefault(); // Stop the browser's default jump
-        const targetId = link.getAttribute("href");
+    // Select ALL links that should scroll smoothly (nav links AND the hero button)
+    const scrollLinks = document.querySelectorAll('.nav a, .hero-buttons a[href^="#"]');
 
-        // Use GSAP to smoothly scroll to the section
-        gsap.to(window, {
-            duration: 1.5, // How long the scroll takes
-            scrollTo: targetId,
-            ease: "power2.inOut"
+    scrollLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault(); // Stop the browser's default jump
+            const targetId = link.getAttribute("href");
+
+            // Use GSAP to smoothly scroll to the section
+            gsap.to(window, {
+                duration: 1.5, // How long the scroll takes
+                scrollTo: targetId,
+                ease: "power2.inOut"
+            });
+
+            // Also close the mobile menu if it's open
+            if (header.classList.contains('open')) {
+                menuTrigger.classList.remove('active');
+                header.classList.remove('open');
+            }
         });
+    });
 
-        // Also close the mobile menu if it's open
-        if (header.classList.contains('open')) {
-            menuTrigger.classList.remove('active');
+
+    // 9: Close Mobile Menu on Outside Click
+    window.addEventListener('click', (e) => {
+        // Check if the menu is open AND if the click was not on the menu itself or the hamburger icon
+        if (header.classList.contains('open') && !mainNav.contains(e.target) && !menuTrigger.contains(e.target)) {
+            // If the conditions are met, close the menu
             header.classList.remove('open');
+            menuTrigger.classList.remove('active');
         }
     });
-});
 
 });
