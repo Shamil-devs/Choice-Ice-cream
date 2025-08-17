@@ -364,6 +364,9 @@ MOBILE & RESPONSIVE STYLES
     }
     .panel-image-container img { width: 100%; max-width: 280px; }
     .founder-image img { width: 140px; height: 140px; }
+    .about-background-images {
+    display: none;
+}
 
     /* --- PRODUCTS SECTION RESPONSIVE --- */
 .product-slide {
