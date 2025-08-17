@@ -9,17 +9,12 @@
     padding: 0;
 }
 
-html {
-    scroll-behavior: smooth;
-}
-
 body {
     font-family: 'Roboto', sans-serif;
     line-height: 1.5;
     background-color: #f8faff; 
-    color: #333; /* A standard dark color for text */
+    color: #333;
     transition: background-color 0.5s ease-in-out;
-
 }
 
 a {
@@ -37,38 +32,35 @@ ul {
     top: 0;
     left: 0;
     right: 0;
-    z-index: 100;
+    z-index: 1000; /* Increased z-index */
     height: 100px;
     transition: all .5s ease;
 }
 
-.header-area .main-nav {
+.main-nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 0 30px;
     height: 100px;
-    border-radius: 50px;
-    margin: 0 auto;
     transition: all .3s ease;
 }
 
-.header-area .main-nav .logo {
-    font-size: 28px;
-    font-weight: 700;
-    color: #fff; /* White logo for the hero section */
-    line-height: 100px;
+.logo img {
+    height: 90px;
+    width: auto;
     transition: all .3s ease;
 }
 
-.header-area .main-nav .nav {
-    display: flex;
+/* --- DESKTOP NAVIGATION --- */
+.desktop-nav {
+    display: flex; 
     align-items: center;
 }
-
-.header-area .main-nav .nav li { padding: 0 15px; }
-
-.header-area .main-nav .nav li a {
+.desktop-nav li {
+    padding: 0 15px;
+}
+.desktop-nav li a {
     display: block;
     font-weight: 500;
     font-size: 16px;
@@ -77,10 +69,14 @@ ul {
     height: 40px;
     line-height: 40px;
 }
-
-.header-area .main-nav .nav li a:hover,
-.header-area .main-nav .nav li a.active {
+.desktop-nav li a:hover,
+.desktop-nav li a.active {
     color: #e2e8f0;
+}
+
+/* --- HIDE MOBILE ELEMENTS ON DESKTOP --- */
+.mobile-nav, .menu-trigger {
+    display: none;
 }
 
 /* --- STICKY HEADER STYLES --- */
@@ -89,7 +85,6 @@ ul {
     top: 10px;
     width: 100%;
 }
-
 .header-sticky .main-nav {
     width: 95%;
     margin: 0 auto;
@@ -98,38 +93,27 @@ ul {
     border-radius: 50px;
     height: 80px;
 }
-
-.header-sticky .main-nav .logo {
-    /* CHANGED: Using brand blue */
-    color: #2d67b1; 
-    line-height: 80px;
+.header-sticky .logo img {
+    height: 70px;
 }
-.menu-trigger{
-    display: none;
-}
-.header-sticky .main-nav .nav li a {
+.header-sticky .desktop-nav li a {
     color: #333;
 }
-
-.header-sticky .main-nav .nav li a:hover,
-.header-sticky .main-nav .nav li a.active {
-    /* CHANGED: Using brand blue */
+.header-sticky .desktop-nav li a:hover,
+.header-sticky .desktop-nav li a.active {
     color: #2d67b1; 
 }
 
-/* === HERO SECTION STYLES === */
+/* === HERO SECTION === */
 #home {
     display: flex;
     align-items: center;
     justify-content: center;
     min-height: 100vh;
     color: #fff;
-    /* CHANGED: Using brand blue gradient */
     background: radial-gradient(circle at 70% 50%, #2d67b1, #1e4579);
     overflow: hidden;
 }
-/* All other hero styles remain the same... */
-
 .hero-container {
     display: flex;
     align-items: center;
@@ -150,19 +134,14 @@ ul {
 .hero-image-container { flex: 1; display: flex; justify-content: center; align-items: center; }
 .hero-image { max-width: 100%; height: auto; transition: transform 0.2s ease-out; }
 
-/* === ABOUT SECTION (HORIZONTAL SCROLL) === */
+/* === ABOUT SECTION === */
 #about {
     position: relative;
     height: 100vh;
     overflow: hidden;
-    scroll-behavior: smooth;
     padding: 0;
-    border-bottom: none;
-    /* CHANGED: Use the same gradient as the hero section */
     background: radial-gradient(circle at 70% 50%, #2d67b1, #1e4579);
 }
-
-/* NEW: Container for the background images */
 .about-background-images {
     position: absolute;
     top: 0;
@@ -172,29 +151,23 @@ ul {
     z-index: 0;
     overflow: hidden;
 }
-
 .about-background-images img {
     position: absolute;
-    opacity: 0.15; /* Make them subtle */
-    width: 250px; /* Example size */
+    opacity: 0.15;
+    width: 250px;
 }
-
-/* Positions for each background image */
 .bg-ice-cream-1 { top: 7%; left: 15%; }
 .bg-ice-cream-2 { bottom: 15%; left: 40%; }
 .bg-ice-cream-3 { top: 20%; right: 10%; }
 .bg-ice-cream-4 { bottom: 5%; right: 5%; }
-
-
 .panels-container {
     width: 400%;
     height: 100%;
     display: flex;
     flex-wrap: nowrap;
     position: relative;
-    z-index: 1; /* Ensure panels are on top of background images */
+    z-index: 1;
 }
-
 .panel {
     width: 100vw;
     height: 100vh;
@@ -202,107 +175,36 @@ ul {
     justify-content: center;
     align-items: center;
     padding: 2rem 4rem;
-    /* CHANGED: Panels are now transparent */
     background-color: transparent;
 }
-
 .panel-content {
     display: flex;
     align-items: center;
-    gap: 4rem;
+    gap: 3rem;
     width: 100%;
-    max-width: 1100px;
-    /* Add a subtle backdrop for readability */
+    max-width: 1000px;
     background-color: rgba(255, 255, 255, 0.7);
     backdrop-filter: blur(10px);
-    padding: 3rem;
+    padding: 2.5rem;
     border-radius: 20px;
     box-shadow: 0 8px 32px 0 rgba(45, 103, 177, 0.1);
 }
-
-.panel h2 { font-size: 2.8rem; color: #2d67b1; margin-bottom: 1rem; font-weight: 700; }
-.panel p { color: #555; line-height: 1.7; max-width: 500px; }
-.panel-image-container img { width: 400px; height: auto; border-radius: 15px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
-
+.panel h2 { font-size: 2.5rem; color: #2d67b1; margin-bottom: 1rem; font-weight: 700; }
+.panel p { color: #555; line-height: 1.7; font-size: 1rem; max-width: 500px; padding: 1rem;}
+.panel-image-container img { width: 350px; height: auto; border-radius: 15px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
 .mission-vision { justify-content: space-around; text-align: center; }
-.mission h3, .vision h3 {
-    font-size: 1.8rem;
-    color: #2d67b1; /* CHANGED: Using brand blue */
-    margin-bottom: 0.5rem;
-}
-/* Add this new rule for the desktop founder layout */
-.founder-panel {
-    flex-wrap: wrap; /* Allows items to wrap to the next line */
-    justify-content: center;
-}
-
-.founder-panel h2 {
-    width: 100%; /* Makes the title take the full width */
-    text-align: center;
-    margin-bottom: 2rem;
-}
-.founder-image img { width: 250px; height: 250px; object-fit: cover; border-radius: 50%; }
-.founder-details h3 { font-size: 1.8rem; color: #333; margin-top: -10px; }
+.mission h3, .vision h3 { font-size: 1.6rem; color: #2d67b1; margin-bottom: 0.5rem; }
+.founder-panel { flex-wrap: wrap; justify-content: center; }
+.founder-panel h2 { width: 100%; text-align: center; margin-bottom: 2rem; }
+.founder-image img { width: 220px; height: 220px; object-fit: cover; border-radius: 50%; }
+.founder-details h3 { font-size: 1.6rem; color: #2d67b1; margin-top: -10px;text-align: center; }
 .commitment-panel { text-align: center; flex-direction: column; }
-
-
-
-/* === ABOUT SECTION - RESPONSIVE (Keeping Horizontal Scroll) === */
-@media (max-width: 992px) {
-    /* Reduce the padding inside each panel for smaller screens */
-    .panel {
-        padding: 2rem 1rem;
-    }
-
-    /* This is the key change:
-       We stack the content (text and images) vertically *inside* the white box.
-    */
-    .panel-content {
-        flex-direction: column;
-        gap: 1.5rem;
-        padding: 1.5rem;
-        text-align: center;
-        /* Allow the box to shrink if needed, but not exceed screen height */
-        max-height: 90vh;
-        overflow-y: auto; /* Add scroll if content overflows on very small screens */
-    }
-
-
-    
-    .panel-text,
-    .founder-details {
-        text-align: center;
-    }
-
-    /* Reduce all font sizes for mobile readability */
-    .panel h2 {
-        font-size: 2rem;
-    }
-    .mission h3, .vision h3, .founder-details h3 {
-        font-size: 1.5rem;
-    }
-    .panel p {
-        font-size: 0.95rem;
-        max-width: 100%;
-    }
-
-    /* Resize images to fit the smaller layout */
-    .panel-image-container img {
-        width: 100%;
-        max-width: 300px;
-    }
-    .founder-image img {
-        width: 150px;
-        height: 150px;
-    }
-}
 
 /* === PRODUCTS SECTION === */
 #products {
     padding: 0;
-    overflow-x: hidden; /* Hide elements before they slide in */
+    overflow-x: hidden;
 }
-
 .product-slide {
     height: 100vh;
     width: 100%;
@@ -313,413 +215,223 @@ ul {
     padding: 0 5%;
     color: #fff;
     overflow: hidden;
-
 }
-
-.product-name,
-.product-description {
-    flex: 1;
-    padding: 2rem;
-}
-
-.product-image {
-    flex: 1.5;
-    text-align: center;
-    position: relative;
-    z-index: 10;
-}
-
-.product-image img {
-    max-width: 450px;
-    width: 100%;
-    height: auto;
-    object-fit: contain;
-}
-
-.product-name { 
-    text-align: left; 
-}
-
-.product-name h2 { 
-    font-size: 3.5rem; 
-    font-weight: 700; 
-    line-height: 1.2;
-}
-
-.product-description { 
-    text-align: right; 
-    display: flex;
-    justify-content: flex-end; /* Aligns the paragraph to the right */
-}
-
-.product-description p { 
-    font-size: 1.1rem; 
-    line-height: 1.6; 
-    max-width: 400px; 
-    text-align: left; /* Keep paragraph text left-aligned for readability */
-}
-
-
-
-/* === GENERAL SECTION STYLING === */
-section {
-    /* Set default padding for other sections like Products */
-    padding: 8rem 2rem 4rem;
-}
-
-
-
-
+.product-name, .product-description { flex: 1; padding: 2rem; }
+.product-image { flex: 1.5; text-align: center; position: relative; z-index: 10; }
+.product-image img { max-width: 450px; width: 100%; height: auto; object-fit: contain; }
+.product-name { text-align: left; }
+.product-name h2 { font-size: 3.5rem; font-weight: 700; line-height: 1.2; }
+.product-description { text-align: right; display: flex; justify-content: flex-end; }
+.product-description p { font-size: 1.1rem; line-height: 1.6; max-width: 400px; text-align: left; }
 
 /* === FOOTER === */
-footer {
-    /* Use a light color that matches the body for a clean look */
+#contact {
     background-color: #f8faff; 
-    color: #333; /* Dark text for readability */
+    color: #333;
     padding: 4rem 2rem 2rem;
     text-align: left;
 }
+.footer-container { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 2rem; max-width: 1200px; margin: 0 auto; padding-bottom: 2rem; }
+.footer-left { display: flex; flex-direction: column; gap: 1.5rem; }
+.footer-logo { font-size: 1.8rem; font-weight: 700; color: #2d67b1; }
+.footer-nav a { color: #555; margin-right: 1.5rem; font-weight: 500; transition: color 0.3s ease; }
+.footer-nav a:hover { color: #2d67b1; }
+/* .footer-socials a { color: #555; font-size: 1.2rem; margin-right: 1rem; transition: color 0.3s ease; }
+.footer-socials a:hover { color: #2d67b1; } */
+ 
+.footer-socials i { color: #555; font-size: 1.2rem; margin-right: 1rem; transition: color 0.3s ease; }
+.footer-socials i:hover { color: #2d67b1; }
+ 
+.footer-right h4 { font-weight: 600; margin-bottom: 1rem; color: #333; }
+.form-group { display: flex; box-shadow: 0 4px 15px rgba(45, 103, 177, 0.1); border-radius: 50px; overflow: hidden; }
+.form-group input { border: 1px solid #ddd; padding: 0.8rem 1.2rem; font-size: 1rem; width: 250px; border-radius: 50px 0 0 50px; }
+.form-group input:focus { outline: 2px solid #2d67b1; }
+.btn-send { background-color: #2d67b1; color: white; border: none; padding: 0 2rem; font-weight: 700; cursor: pointer; transition: background-color 0.3s ease; border-radius: 0 50px 50px 0; }
+.btn-send:hover { background-color: #1e4579; }
+.form-status { margin-top: 0.5rem; font-size: 0.9rem; height: 1.2rem; }
+.footer-bottom { max-width: 1200px; margin: 0 auto; padding-top: 1rem; }
+.footer-bottom hr { border: 0; border-top: 1px solid #ddd; }
+.footer-bottom p { text-align: center; color: #888; margin-top: 1rem; font-size: 0.9rem; }
 
-.footer-container {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 2rem;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding-bottom: 2rem;
+/* === OVERLAY FOR MOBILE MENU === */
+#menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+#menu-overlay.active {
+    opacity: 1;
+    visibility: visible;
 }
 
-.footer-left {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-}
-
-.footer-logo {
-    font-size: 1.8rem;
-    font-weight: 700;
-    color: #2d67b1; /* Brand blue */
-}
-
-.footer-nav a {
-    color: #555;
-    margin-right: 1.5rem;
-    font-weight: 500;
-    transition: color 0.3s ease;
-}
-
-.footer-nav a:hover {
-    color: #2d67b1;
-}
-
-.footer-socials a {
-    color: #555;
-    font-size: 1.2rem;
-    margin-right: 1rem;
-    transition: color 0.3s ease;
-}
-
-.footer-socials a:hover {
-    color: #2d67b1;
-}
-
-.footer-right h4 {
-    font-weight: 600;
-    margin-bottom: 1rem;
-    color: #333;
-}
-
-.form-group {
-    display: flex;
-    box-shadow: 0 4px 15px rgba(45, 103, 177, 0.1);
-    border-radius: 50px;
-    overflow: hidden;
-}
-
-.form-group input {
-    border: 1px solid #ddd;
-    padding: 0.8rem 1.2rem;
-    font-size: 1rem;
-    width: 250px;
-    border-radius: 50px 0 0 50px;
-}
-
-.form-group input:focus {
-    outline: 2px solid #2d67b1;
-}
-
-.btn-send {
-    background-color: #2d67b1;
-    color: white;
-    border: none;
-    padding: 0 2rem;
-    font-weight: 700;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    border-radius: 0 50px 50px 0;
-}
-
-.btn-send:hover {
-    background-color: #1e4579;
-}
-
-.form-status {
-    margin-top: 0.5rem;
-    font-size: 0.9rem;
-    height: 1.2rem;
-}
-
-.footer-bottom {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding-top: 1rem;
-}
-
-.footer-bottom hr {
-    border: 0;
-    border-top: 1px solid #ddd;
-}
-
-.footer-bottom p {
-    text-align: center;
-    color: #888;
-    margin-top: 1rem;
-    font-size: 0.9rem;
-}
-
-
-
-
-/* === MOBILE & RESPONSIVE STYLES === */
+/*
+==============================================
+MOBILE & RESPONSIVE STYLES
+==============================================
+*/
 @media (max-width: 992px) {
 
-    /* --- MOBILE HEADER & NAVIGATION --- */
-
-    /* Show the hamburger icon on mobile */
+    /* --- HIDE DESKTOP NAV & SHOW MOBILE ELEMENTS --- */
+    .desktop-nav {
+        display: none !important;
+    }
     .menu-trigger {
         display: block;
-        cursor: pointer;
-        position: absolute;
-        top: 35px; /* Adjusted position */
-        right: 30px;
-        width: 28px; /* Reduced width */
-        height: 35px; /* Reduced height */
-        text-indent: -9999em;
+        z-index: 1002;
     }
 
-    .header-sticky .menu-trigger {
-        top: 25px; /* Adjusted position */
+/* Slide-in Icon Menu Styling (from the right) */
+.mobile-nav {
+    display: flex;
+    position: fixed;
+    top: 50%;
+    right: 0; /* CHANGED: Was 'left: 0' */
+    height: 60vh;
+    width: 70px;
+    background-color: #fff;
+    border-radius: 15px 0 0 15px; /* CHANGED: Rounded corners on the left */
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.15);
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    padding: 20px 0;
+    transform: translate(100%, -50%); /* CHANGED: Hides it off-screen to the right */
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    z-index: 101;
+}
+    .header-area.open .mobile-nav {
+        transform: translate(0, -50%);
     }
+    .mobile-nav li { width: 100%; text-align: center; }
+    .mobile-nav li a { padding: 15px 0; font-size: 1.8rem; color: #2d67b1; transition: transform 0.2s ease, color 0.2s ease; }
+    .mobile-nav li a:hover { color: #1e4579; transform: scale(1.1); }
+    .mobile-nav li a.active { color: #1e4579; transform: scale(1.2); }
 
-    /* Styling for the hamburger icon's bars */
-    .menu-trigger span,
-    .menu-trigger span:before,
-    .menu-trigger span:after {
-        transition: all 0.4s;
-        background-color: #fff;
-        display: block;
-        position: absolute;
-        width: 26px; /* Reduced bar width */
-        height: 2px;
-        left: 0;
-    }
-
+    /* Hamburger Icon */
+    .menu-trigger { cursor: pointer; position: absolute; top: 35px; right: 30px; width: 28px; height: 35px; text-indent: -9999em; }
+    .header-sticky .menu-trigger { top: 25px; }
+    .menu-trigger span, .menu-trigger span:before, .menu-trigger span:after { transition: all 0.4s; background-color: #fff; display: block; position: absolute; width: 26px; height: 2px; left: 0; }
+    .header-sticky .menu-trigger span, .header-sticky .menu-trigger span:before, .header-sticky .menu-trigger span:after { background-color: #2d67b1; }
+    .menu-trigger span:before, .menu-trigger span:after { content: ""; }
     .menu-trigger span { top: 16px; }
-    .menu-trigger span:before { top: -8px; } /* Reduced spacing */
-    .menu-trigger span:after { top: 8px; }  /* Reduced spacing */
-
-    .header-sticky .menu-trigger span,
-    .header-sticky .menu-trigger span:before,
-    .header-sticky .menu-trigger span:after {
-        background-color: #2d67b1;
-    }
-
-    .menu-trigger span:before,
-    .menu-trigger span:after {
-        content: "";
-    }
-
-
-
-    /* Hamburger to "X" animation */
+    .menu-trigger span:before { top: -8px; }
+    .menu-trigger span:after { top: 8px; }
     .menu-trigger.active span { background-color: transparent; }
-    .menu-trigger.active span:before {
-        transform: translateY(10px) rotate(45deg);
-        background-color: #2d67b1;
-    }
-    .menu-trigger.active span:after {
-        transform: translateY(-10px) rotate(-45deg);
-        background-color: #2d67b1;
-    }
+    .menu-trigger.active span:before { transform: translateY(8px) rotate(45deg); background-color: #2d67b1; }
+    .menu-trigger.active span:after { transform: translateY(-8px) rotate(-45deg); background-color: #2d67b1; }
 
-    /* Floating Dropdown Menu Styling */
-    .header-area .main-nav .nav {
-        display: block;
-        position: absolute;
-        top: 90px;
-        right: 30px;
-        width: 220px;
-        background-color: #fff;
-        border-radius: 15px;
-        box-shadow: 0 5px 25px rgba(0, 0, 0, 0.15);
-        padding: 10px;
-        transform-origin: top right;
-        transform: scale(0.9) translateY(-20px);
-        opacity: 0;
-        visibility: hidden;
-        transition: transform 0.3s ease, opacity 0.3s ease, visibility 0.3s;
-    }
-
-    .header-area.open .nav {
-        transform: scale(1) translateY(0);
-        opacity: 1;
-        visibility: visible;
-    }
-
-    .header-area .main-nav .nav li {
-        width: 100%;
-        text-align: center;
-        display: flex;
-        align-items: center;
-        margin-bottom: 5px;
-
-    }
-    
-    .header-area .main-nav .nav li:last-child {
-        margin-bottom: 0;
-    }
-
-    .header-area .main-nav .nav li a {
-        color: #333;
-        width: 100%;
-        padding: 0px 10px;
-        border-radius: 10px;
-        transition: background-color 0.2s ease, color 0.2s ease;
-    }
-
-    .header-area .main-nav .nav li a:hover {
-        background-color: #f0f4f8;
-        color: #2d67b1;
-    }
-    
-    .header-area .main-nav .nav li a.active {
-        background-color: #2d67b1;
-        color: #fff;
-    }
-    
-    /* --- OTHER RESPONSIVE SECTION STYLES --- */
-    .hero-container {
-        flex-direction: column;
-        text-align: center;
-    }
-
-    .hero-text {
-        margin-bottom: 3rem;
-    }
-
+    /* --- HERO SECTION RESPONSIVE --- */
+    .hero-container { flex-direction: column; text-align: center; }
+    .hero-text { margin-bottom: 3rem; order: 2; }
+    .hero-image-container { order: 1; }
     .hero-text h1 {
-        font-size: 3rem;
-    }
-
-    .hero-buttons {
-        justify-content: center;
-    }
+    /* clamp(MINIMUM, PREFERRED, MAXIMUM) */
+    font-size: clamp(2.5rem, 10vw, 3rem);
 }
+    .hero-buttons { justify-content: center; }
 
-@media (min-width: 993px) {
-    .header-area .main-nav .nav {
-        display: flex !important;
-    }
-}
-
-
-
-/* === PRODUCTS SECTION - RESPONSIVE === */
-@media (max-width: 992px) {
-    .product-slide {
-        flex-direction: column;
-        justify-content: center;
-        gap: 1rem;
-        padding: 2rem 1rem;
-    }
-
-    .product-name {
-        order: 1;
-        text-align: center;
-        padding: 0.5rem;
-    }
-
-    .product-image {
-        order: 2;
-        padding: 0;
-    }
-    
-    .product-description {
-        order: 3;
-        text-align: center;
-        padding: 0.5rem;
-        justify-content: center;
-    }
-
-    .product-image img {
-        max-width: 280px;
-    }
-
-    .product-name h2 {
-        font-size: 2.2rem;
-    }
-
-    .product-description p {
-        font-size: 1rem;
-        text-align: center; /* Center paragraph on mobile */
-        max-width: 100%;
-    }
-}
-/* === ABOUT SECTION - RESPONSIVE (Keeping Horizontal Scroll) === */
-@media (max-width: 992px) {
-    /* Reduce the padding inside each panel for smaller screens */
-    .panel {
-        padding: 2rem 1rem;
-    }
-
-    /* This is the key change:
-       We stack the content (text and images) vertically *inside* the white box.
-    */
-    .panel-content {
-        flex-direction: column;
-        gap: 1rem; /* Reduced space between items */
-        padding: 1.2rem; /* Reduced padding inside the box */
-        text-align: center;
-        max-height: 90vh;
-        overflow: hidden; /* CHANGED: This prevents the scrollbar */
-    }
-
-    .panel-text,
-    .founder-details {
-        text-align: center;
-    }
-
-    /* Reduce all font sizes for mobile readability */
+    /* --- ABOUT SECTION RESPONSIVE --- */
+    .panel { padding: 2rem 1rem; }
+    .panel-content { flex-direction: column; gap: 1rem; padding: 1.2rem; text-align: center; max-height: 90vh; overflow: hidden; }
+    .panel-content.founder-panel { flex-direction: column-reverse; }
+    .panel-text, .founder-details { text-align: center; }
     .panel h2 {
-        font-size: 1.8rem; /* Reduced font size */
+        font-size: clamp(1.6rem, 6vw, 1.8rem);
     }
     .mission h3, .vision h3, .founder-details h3 {
-        font-size: 1.4rem; /* Reduced font size */
+        font-size: clamp(1.2rem, 5vw, 1.4rem);
     }
     .panel p {
-        font-size: 0.9rem; /* Reduced font size */
+        font-size: clamp(0.85rem, 3.5vw, 0.9rem);
         line-height: 1.6;
         max-width: 100%;
     }
+    .panel-image-container img { width: 100%; max-width: 280px; }
+    .founder-image img { width: 140px; height: 140px; }
 
-    /* Resize images to fit the smaller layout */
-    .panel-image-container img {
-        width: 100%;
-        max-width: 280px; /* Reduced image size */
+    /* --- PRODUCTS SECTION RESPONSIVE --- */
+.product-slide {
+    flex-direction: column;
+    /* CHANGED: This distributes space evenly between elements */
+    justify-content: space-evenly; 
+    gap: 1rem;
+    padding: 2rem 1rem;
+}
+    .product-name { order: 1; text-align: center; padding: 0.5rem; padding-top: 8rem}
+    .product-image { order: 2; padding: 0; }
+    .product-description { order: 3; text-align: center; padding: 0.5rem; justify-content: center; padding-top: 5rem}
+    .product-image img { max-width: 280px; }
+    .product-name h2 {
+        font-size: clamp(1.8rem, 8vw, 2.2rem);
+    }
+    .product-description p {
+        font-size: clamp(0.9rem, 4vw, 1rem);
+        text-align: center;
+        max-width: 100%;
+    }
+}
+
+
+/*
+==============================================
+EXTRA RESPONSIVE STYLES FOR SMALL DEVICES (e.g., iPhone SE)
+==============================================
+*/
+@media (max-width: 380px) {
+
+    /* 1. Prevents any accidental horizontal scrolling */
+    body {
+        overflow-x: hidden;
+    }
+
+    /* 2. Makes the sticky navbar fit on narrow screens */
+    .header-sticky .main-nav {
+        padding: 0 15px; /* Reduces side padding */
+    }
+
+    /* 3. Further reduces image sizes */
+    .hero-image {
+        max-width: 90%; /* Makes hero image slightly smaller */
+    }
+
+    .panel-image-container img,
+    .product-image img {
+        max-width: 240px; /* Reduces images in About/Products */
+    }
+
+    /* 4. Further reduces text sizes */
+    .hero-text h1 {
+        font-size: clamp(2.2rem, 9vw, 2.5rem);
+    }
+    .panel h2 {
+        font-size: clamp(1.5rem, 5.5vw, 1.6rem);
+    }
+    .product-name h2 {
+        font-size: clamp(1.6rem, 7vw, 1.8rem);
+    }
+    .panel p {
+        font-size: clamp(0.8rem, 3.2vw, 0.85rem);
+    }
+}
+
+/* Rule for short screens to prevent founder's bio from being cut off */
+@media (max-height: 670px) {
+    .panel-content {
+        padding: 1rem;
+        gap: 0.8rem; /* Reduces vertical spacing */
     }
     .founder-image img {
-        width: 140px; /* Reduced image size */
-        height: 140px; /* Reduced image size */
+        width: 100px; /* Makes founder image smaller */
+        height: 100px;
+    }
+    .panel h2 {
+        margin-bottom: 0.5rem;
     }
 }
