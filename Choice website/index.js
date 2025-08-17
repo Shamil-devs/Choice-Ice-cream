@@ -95,12 +95,12 @@ sections.forEach(section => {
         // Main timeline for the scroll trigger
         let tl = gsap.timeline({
             scrollTrigger: {
-                trigger: "#about",
-                pin: true,
-                scrub: 1,
-                snap: 1 / (panels.length - 1),
-                end: () => "+=" + panelsContainer.offsetWidth
-            }
+            trigger: "#about",
+            pin: true,
+            scrub: 0.5, // This makes it feel more responsive
+            snap: 1 / (panels.length - 1),
+            end: () => "+=" + panelsContainer.offsetWidth
+        }
         });
 
         // Add the panel scrolling animation to the timeline

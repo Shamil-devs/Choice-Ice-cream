@@ -454,3 +454,17 @@ EXTRA RESPONSIVE STYLES FOR SMALL DEVICES (e.g., iPhone SE)
         min-width: 150px;
     }
 }
+/* === ABOUT SECTION - MOBILE PERFORMANCE FIX === */
+@media (max-width: 992px) {
+    .panel-content {
+        /* Disables the performance-heavy blur on mobile */
+        backdrop-filter: none;
+        /* Make the background slightly more opaque to maintain readability */
+        background-color: rgba(255, 255, 255, 0.85);
+    }
+
+    /* Hint to the browser to optimize these animating elements */
+    .panels-container, .about-background-images {
+        will-change: transform;
+    }
+}
